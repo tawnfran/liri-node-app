@@ -101,9 +101,10 @@ function getSpotify(userRequest) {
         // console.log(data.tracks.items);
 
         for (var i=0; i < data.tracks.items.length; i++) {
-          console.log("Artists Name: " + data.tracks.items[0].album.artist)
+          // console.log(data.tracks.items[0].album.artists[0].name);
+          console.log("Artists Name: " + data.tracks.items[0].album.artists[0].name)
           console.log("Songs Name: " + data.tracks.items[0].name)
-          console.log("Song Link: " + data.tracks.items[0].uri)
+          console.log("Song Link: " + data.tracks.items[0].preview_url)
           console.log("Album Name: " + data.tracks.items[0].album.name)
           
 

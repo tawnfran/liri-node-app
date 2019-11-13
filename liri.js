@@ -36,11 +36,17 @@ switch (userCommand) {
     break;
 
   case "do-what-it-says":
-    doWhatItSays(userRequest);
+    doWhatItSays();
+    // if (userCommand === "spotify-this-song") {
+    //   getSpotify(userRequest);
+    // } else if (userCommand === "movie-this") {
+    //   movie(userRequest);
+    // } else if (userCommand === "concert-this") {
+    //   concert(userRequest);
+    // }
     break;
 
 }
-
 
 
 // console.log(userCommand);
@@ -86,12 +92,22 @@ function concert(userRequest) {
 function getSpotify(userRequest) {
   console.log("this is working")
   console.log(userRequest)
-  spotify.search({ type: 'track', query: userRequest, limit: 5 },
+  spotify.search({ type: 'track', query: userRequest, limit: 1 },
     function (err, data) {
       if (err) {
         return console.log('Error occurred: ' + err);
       } else
-        console.log(data);
+
+        // console.log(data.tracks.items);
+
+        for (var i=0; i < data.tracks.items.length; i++) {
+          console.log("Artists Name: " + data.tracks.items[0].album.artist)
+          console.log("Songs Name: " + data.tracks.items[0].name)
+          console.log("Song Link: " + data.tracks.items[0].uri)
+          console.log("Album Name: " + data.tracks.items[0].album.name)
+          
+
+        }
     })  // .catch(function (error) {
   //   console.log("Error, please try to search again!");
   // })
@@ -142,15 +158,19 @@ function doWhatItSays() {
     // Then split it by commas (to make it more readable)
     var output = data.split(",");
     // loop thru new output array
-    for (var i = 0; i < output.length; i++) {
-    
-      // We will then re-display the content as an array for later use.
-      console.log(output[i]);
+    userCommand = output[0];
+    console.log("DWIS" + userCommand);
+    userRequest = output[1];
+    console.log("DWIS" + userRequest);
+    if (userCommand === "spotify-this-song") {
+      getSpotify(userRequest);
+    } else if (userCommand === "movie-this") {
+      movie(userRequest);
+    } else if (userCommand === "concert-this") {
+      concert(userRequest);
     }
-    getSpotify(output[1]);
   });
 }
-
  // Use "fs" to read the random.txt file (hint, you will need to require fs! Look at activities 12 and 13)
   // The command will be whatever is before the comma. The search term will be whatever is after the comma.
   // Make the corresponding API call depending on what the command is.

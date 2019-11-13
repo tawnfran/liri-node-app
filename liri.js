@@ -21,110 +21,113 @@ switch (userCommand) {
     if (userRequest === "") {
       userRequest = "The-sign";
       getSpotify(userRequest);
-    } else
+    } else {
       getSpotify(userRequest);
+    }
     break;
 
   case "movie-this":
     if (userRequest === "") {
       userRequest = "Mr.Nobody";
       movie(userRequest);
-    } else
+    } else {
       movie(userRequest);
+    }
     break;
 
   case "do-what-it-says":
     doWhatItSays(userRequest);
     break;
 
-
-
-
-
-    // console.log(userCommand);
-    // check if userCommand is "concert-this"
-    // Include the axios npm package (Don't forget to run "npm install axios" in this folder first!)
-    // insert the user's search term in the queryURL
-    // display name of venue, venue location, and date of the event
-    // format the date of the event to be MM/DD/YYYY 
-    // run and API call using axios to the bands-in-town API
-    function concert(userRequest) {
-      var queryUrl = "https://rest.bandsintown.com/artists/" + userRequest + "/events?app_id=codingbootcamp";
-
-      axios.get(queryUrl).then(
-        function (response) {
-          // if (response.data.Artist === "") {
-          //   console.log("There are no results for this artist!");
-          // } else {
-          if (response.data.length === 0) {
-            console.log(userRequest + "has no shows nearby");
-          } else {
-            for (let i = 0; i < response.data.length; i++) {
-              console.log(response.data[i].venue.name);
-              console.log(response.data[i].venue.city);
-              console.log(moment(response.data[i].datetime).format("MM/DD/YYYY"));
-            }
-          }
-        })
-        .catch(function (error) {
-          console.log("Error, please try to search again!");
-        })
-    }
-
-
-
-    //FINISH THIS!!!! only saying "this is loaded" in command line
-    // check is userCommand is "spotify-this-song"
-    // using Spotify node package info, make a call to the Spotify API
-    // display to the user:
-    // * Artist(s)
-    //  * The song's name
-    //  * A preview link of the song from Spotify
-    //  * The album that the song is from
-    function getSpotify() {
-      spotify.search({ type: 'track', query: userRequest, limit: 5 }),
-        function (err, data) {
-          if (err) {
-            return console.log('Error occurred: ' + err);
-          } else
-            console.log(data);
-        }
-      // .catch(function (error) {
-      //   console.log("Error, please try to search again!");
-      // })
-    }
-
-    // provide a default searchTerm if the user didnt provide an argument
-
-
-
-    // check is userCommand is "movie-this"
-    // Use Axios to call the OMDB API using the user's search term. Use activities 17 and 18 as a reference!
-    function movie(userRequest) {
-      var queryUrl = "http://www.omdbapi.com/?t=" + userRequest + "&y=&plot=short&apikey=trilogy";
-      // console.log("You picked this movie: " + userRequest);
-
-      axios.get(queryUrl).then(
-        function (response) {
-          if (response.data.Title === "") {
-            console.log("There are no results for this movie");
-          } else {
-            console.log(response.data.Title);
-            console.log(response.data.Year);
-            console.log(response.data.Rated);
-            console.log(response.data.Ratings[1]);
-            console.log(response.data.Country);
-            console.log(response.data.Language);
-            console.log(response.data.Plot);
-            console.log(response.data.Actors);
-          }
-        })
-        .catch(function (error) {
-          console.log("Error, please try to search again!");
-
-        });
-    }
 }
+
+
+
+// console.log(userCommand);
+// check if userCommand is "concert-this"
+// Include the axios npm package (Don't forget to run "npm install axios" in this folder first!)
+// insert the user's search term in the queryURL
+// display name of venue, venue location, and date of the event
+// format the date of the event to be MM/DD/YYYY 
+// run and API call using axios to the bands-in-town API
+function concert(userRequest) {
+  var queryUrl = "https://rest.bandsintown.com/artists/" + userRequest + "/events?app_id=codingbootcamp";
+
+  axios.get(queryUrl).then(
+    function (response) {
+      // if (response.data.Artist === "") {
+      //   console.log("There are no results for this artist!");
+      // } else {
+      if (response.data.length === 0) {
+        console.log(userRequest + "has no shows nearby");
+      } else {
+        for (let i = 0; i < response.data.length; i++) {
+          console.log(response.data[i].venue.name);
+          console.log(response.data[i].venue.city);
+          console.log(moment(response.data[i].datetime).format("MM/DD/YYYY"));
+        }
+      }
+    })
+    .catch(function (error) {
+      console.log("Error, please try to search again!");
+    })
+}
+
+
+
+//FINISH THIS!!!! only saying "this is loaded" in command line
+// check is userCommand is "spotify-this-song"
+// using Spotify node package info, make a call to the Spotify API
+// display to the user:
+// * Artist(s)
+//  * The song's name
+//  * A preview link of the song from Spotify
+//  * The album that the song is from
+function getSpotify(userRequest) {
+  console.log("this is working")
+  console.log(userRequest)
+  spotify.search({ type: 'track', query: userRequest, limit: 5 },
+    function (err, data) {
+      if (err) {
+        return console.log('Error occurred: ' + err);
+      } else
+        console.log(data);
+    })  // .catch(function (error) {
+  //   console.log("Error, please try to search again!");
+  // })
+}
+
+// provide a default searchTerm if the user didnt provide an argument
+
+
+
+// check is userCommand is "movie-this"
+// Use Axios to call the OMDB API using the user's search term. Use activities 17 and 18 as a reference!
+function movie(userRequest) {
+  var queryUrl = "http://www.omdbapi.com/?t=" + userRequest + "&y=&plot=short&apikey=trilogy";
+  // console.log("You picked this movie: " + userRequest);
+
+  axios.get(queryUrl).then(
+    function (response) {
+      if (response.data.Title === "") {
+        console.log("There are no results for this movie");
+      } else {
+        console.log(response.data.Title);
+        console.log(response.data.Year);
+        console.log(response.data.Rated);
+        console.log(response.data.Ratings[1]);
+        console.log(response.data.Country);
+        console.log(response.data.Language);
+        console.log(response.data.Plot);
+        console.log(response.data.Actors);
+      }
+    })
+    .catch(function (error) {
+      console.log("Error, please try to search again!");
+
+    });
+}
+
 
 // check is userCommand is "do-what-it-says"
 function doWhatItSays() {
@@ -140,9 +143,11 @@ function doWhatItSays() {
     var output = data.split(",");
     // loop thru new output array
     for (var i = 0; i < output.length; i++) {
+    
       // We will then re-display the content as an array for later use.
       console.log(output[i]);
     }
+    getSpotify(output[1]);
   });
 }
 
